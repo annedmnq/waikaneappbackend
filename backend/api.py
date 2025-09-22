@@ -15,6 +15,7 @@ BASE_DIR = os.path.dirname(__file__)
 WAIKANE_TIDE_FILE = os.path.join(BASE_DIR, 'Waikane_Tide_Data.json')
 WAIKANE_STREAM_FILE = os.path.join(BASE_DIR, 'Waikane_Stream_Data.json')
 WAIAHOLE_STREAM_FILE = os.path.join(BASE_DIR, 'Waiahole_Stream_Data.json')
+PUNALUU_STREAM_FILE = os.path.join(BASE_DIR, 'Punaluu_Stream_Data.json')
 WAIKANE_TIDE_CURVE_FILE = os.path.join(BASE_DIR, 'Waikane_Tide_Curve.json')
 RAIN_DATA_FILE = os.path.join(BASE_DIR, 'Rain_Data.json')
 STREAM_TREND_DATA_FILE = os.path.join(BASE_DIR, 'Stream_Trend_Data.json')
@@ -52,6 +53,16 @@ def get_waiahole_stream_data():
     update_data()  # Update data before serving
     try:
         with open(WAIAHOLE_STREAM_FILE, 'r') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/punaluu_stream', methods=['GET'])
+def get_punaluu_stream_data():
+    update_data()  # Update data before serving
+    try:
+        with open(PUNALUU_STREAM_FILE, 'r') as f:
             data = json.load(f)
         return jsonify(data)
     except Exception as e:
